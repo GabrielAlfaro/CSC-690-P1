@@ -40,6 +40,15 @@ class ReverseCeaserCipherTest: XCTestCase {
         
     }
     
+    func test_EncodingOfRestrictedSymbols(){
+        let plaintext = "\""
+        
+        let result = cipher.encode(plaintext, secret: "1")
+        
+        XCTAssertEqual(nil, result)
+        //Unit Test Passes but app crashes
+    }
+    
     
     
     

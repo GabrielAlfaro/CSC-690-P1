@@ -39,7 +39,8 @@ class SpyAppViewController: UIViewController {
         if let encoded = cipher.encode(plaintext, secret: secretText) {
             output.text = encoded
         } else {
-            output.text = "Error encoding"
+            //output.text = "Error encoding"
+            output.text = "Invalid Input"
         }
         
         

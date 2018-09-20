@@ -7,6 +7,9 @@ protocol Cipher {
 }
 
 struct CeaserCipher: Cipher {
+    
+    //assuming the user won't shift the characters by more than 4 when using z
+    //assuming the user won't shift the characters negatively more than 8 from the integer 0
 
     func encode(_ plaintext: String, secret: String) -> String? {
         guard let shiftBy = UInt32(secret) else {
@@ -14,18 +17,25 @@ struct CeaserCipher: Cipher {
         }
         var encoded = ""
 
-//        let invalidChar = "!\"#$%&'()*+,-./:;<=>?@[]{}~`"
-//        if plaintext.contains(invalidChar){
-//           encoded = "Error Invalid Character"
-//            return encoded
-//        }
+        
         for character in plaintext {
+            
+            
+            if (40...125).contains(character.unicodeScalars.first!.value){
+                //do nothing
+                //this keeps the range of available characters
+                //from 0 to Z with symbols inside
+                //gives extra wiggle room for shifting, need to test case if
+                //the secret pushes the the ascii value to far off
+            }else{
+                return nil
+            }
+            //might take a while to process since it goes character by character
+            
+            
             let unicode = character.unicodeScalars.first!.value
  
             let shiftedUnicode = unicode + shiftBy
-            if shiftedUnicode <= 33 || shiftedUnicode > 123 {
-                return nil
-            }
             //seems to handle crashes
             //keeps passing through ! as a valid input though
             

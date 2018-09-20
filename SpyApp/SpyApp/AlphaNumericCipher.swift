@@ -7,56 +7,54 @@ import Foundation
 struct AlphaNumericCipher : Cipher {
     
     
+    //Assume that the amount of letters inputted are short enough to not crash the app
+    //could change the casting for the shiftedCharacter to a 32 bit unsigned character
+    //but that would require using an optional
+    
+    
+    
+    
     func encode(_ plaintext: String, secret: String) -> String? {
         guard let shiftBy = UInt32(secret) else {
             return nil
         }
         
-        
-//        guard let newText = plaintext.uppercased() else {
-//            return nil
-//        }
+//        let invalidChar = "!\"#$%&'()*+,-./:;<=>?@[]{}~`"
         
         let newText = plaintext.uppercased()
-        
-        let alphaNumericDictionary = [48: "0",49: "1", 50: "2", 51: "3", 52: "4", 53: "5",
-         54: "6", 55: "7", 56: "8", 57: "9", 65: "A" , 66: "B" , 67: "C", 68: "D", 69: "E",
-         70: "F", 71: "G", 72: "H", 73: "I", 74: "J", 75: "K", 76: "L", 77: "M", 78: "N",
-         79: "O", 80: "P", 81: "Q", 82: "R", 83: "S", 84: "T", 85: "U", 86: "V", 87: "W",
-         88: "X", 89: "Y", 90: "Z"]
-        
-        
-        
         //change the string to uppercase
+        
+//        let alphaNumericDictionary = [48: "0",49: "1", 50: "2", 51: "3", 52: "4", 53: "5",
+//         54: "6", 55: "7", 56: "8", 57: "9", 65: "A" , 66: "B" , 67: "C", 68: "D", 69: "E",
+//         70: "F", 71: "G", 72: "H", 73: "I", 74: "J", 75: "K", 76: "L", 77: "M", 78: "N",
+//         79: "O", 80: "P", 81: "Q", 82: "R", 83: "S", 84: "T", 85: "U", 86: "V", 87: "W",
+//         88: "X", 89: "Y", 90: "Z"]
+        
+        
+        for char in newText {
+            
+            if (65...90).contains(char.unicodeScalars.first!.value){
+                
+              //  UInt32(String(char)) != nil //redundant
+            } else if (48...57).contains(char.unicodeScalars.first!.value){
+                //do nothing, range takes into account the integers
+            }else {
+                return nil
+            }
+            
+        }
         
         var encoded = ""
         
-//        if newText.contains("\""){
-//            return nil
-//        }
-        
         for character in newText {
-            
             
         let unicode = character.unicodeScalars.first!.value
             
             if unicode % 2 == 0{
                 //remaind = 0
-                print(unicode)
-                print(character)
             } else {
                 //remainder = 1
-                print(unicode)
-                print(character)
             }
-            
-            
-            
-            if unicode < 48 || unicode > 122 {
-                //32 is the ascii value for space, keeping space
-                return nil
-            }
-            
         var shiftedUnicode = unicode + shiftBy//needs to be mutated, changed from let identifier
             //add the secret to the unicode of the first character
             
@@ -65,10 +63,6 @@ struct AlphaNumericCipher : Cipher {
                 let numRemainder = shiftedUnicode - 57//remainder
                 shiftedUnicode = 64
                 let newShiftedUnicode = shiftedUnicode + numRemainder
-                
-                if shiftedUnicode < 33 || shiftedUnicode > 123 {
-                    return nil
-                }
                 
                 let shiftedChracter = String(UnicodeScalar(UInt8(newShiftedUnicode)))
                 encoded = encoded + shiftedChracter

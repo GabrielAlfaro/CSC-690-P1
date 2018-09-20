@@ -6,7 +6,8 @@ import Foundation
 
 struct RandomCharacters: Cipher {
     
-    //need to finish this cipher
+    //assuming the user won't shift the characters by more than 4 when using z
+    //assuming the user won't shift the characters negatively more than 8 from the integer 0
     
     func encode(_ plaintext: String, secret: String) -> String? {
         guard let shiftBy = UInt32(secret) else {
@@ -14,18 +15,18 @@ struct RandomCharacters: Cipher {
         }
         var encoded = ""
         
-        if plaintext.contains("\""){
-            return nil
+        for char in plaintext {
+            if (40...125).contains(char.unicodeScalars.first!.value){
+                //valid character
+            }else{
+             return nil
+            }
         }
         
-        
         for character in plaintext {
+            
             let unicode = character.unicodeScalars.first!.value
             let shiftedUnicode = unicode + shiftBy
-        
-            if shiftedUnicode < 33 || shiftedUnicode > 123 {
-                return nil
-            }
             
             let shiftedCharacter = String(UnicodeScalar(UInt8(shiftedUnicode)))
             encoded = encoded + shiftedCharacter + "+"

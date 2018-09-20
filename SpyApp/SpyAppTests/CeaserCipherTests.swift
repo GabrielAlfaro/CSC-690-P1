@@ -38,6 +38,28 @@ class CeaserCipherTests: XCTestCase {
         XCTAssertEqual("test", result)
     }
     
+    func test_CheckingEncodingForSymbols(){
+        let plaintext = "!"
+        
+        let result = cipher.encode(plaintext, secret: "1")
+        
+        XCTAssertEqual(nil, result)
+        //passes when it shouldnt even allow for exclamation point to pass 
+    }
+    
+    
+    
+    func test_CheckingDecodingForSymbols(){
+        let plaintext = "\""
+        print(plaintext)
+        let result = cipher.decode(plaintext, secret: "1")
+        
+        XCTAssertEqual(nil, result)
+        //it sees " as a nil
+        //when decoding
+        
+    }
+    
     
 
 }

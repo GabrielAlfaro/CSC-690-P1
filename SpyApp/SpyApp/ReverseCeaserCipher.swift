@@ -21,24 +21,22 @@ struct ReverseCeaserCipher: Cipher {
             return nil
         }
         
+        for char in plaintext {
+            if(40...125).contains(char.unicodeScalars.first!.value){
+                //do nothing you good
+            }else {
+                return nil
+            }
+        }
         
         var encoded = ""
         
-        if plaintext.contains("\""){
-             encoded = "Quotation marks are not a valid character!"
-            return encoded
-            // return nil
-        }else{
-        //append the number to the string with a space to seperate each letter
-        //or just have all the numbers there/have to check if numbers will be converted
-        //correctly
         for character in plaintext {
+
+            
             let unicode = character.unicodeScalars.first!.value
             let shiftedUnicode = unicode + shiftBy
             
-            if shiftedUnicode < 33 || shiftedUnicode > 123 {
-                return nil
-            }
             
             let shiftedCharacter = String(UnicodeScalar(UInt8(shiftedUnicode)))
             encoded = encoded + shiftedCharacter
@@ -50,7 +48,6 @@ struct ReverseCeaserCipher: Cipher {
         
         //originally return encoded
         return reversed
-        }//for else statement
     }
     
 
