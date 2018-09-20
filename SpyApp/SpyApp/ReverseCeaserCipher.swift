@@ -10,6 +10,8 @@ import Foundation
 //letter to number
 //returns the ascii table value shifte over
 //and decoding will shift the ascii value back and cast it back to a string
+//assuming the user won't shift the characters by more than 4 when using z
+//assuming the user won't shift the characters negatively more than 8 from the integer 0
 
 struct ReverseCeaserCipher: Cipher {
 

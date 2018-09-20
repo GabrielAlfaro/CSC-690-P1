@@ -5,10 +5,9 @@ import Foundation
 
 
 struct RandomCharacters: Cipher {
-    
+    //adds a + in between a ceaser cipher, not creative but makes it more difficult to read
     //assuming the user won't shift the characters by more than 4 when using z
     //assuming the user won't shift the characters negatively more than 8 from the integer 0
-    
     func encode(_ plaintext: String, secret: String) -> String? {
         guard let shiftBy = UInt32(secret) else {
             return nil

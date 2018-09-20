@@ -8,6 +8,7 @@ protocol Cipher {
 
 struct CeaserCipher: Cipher {
     
+    //shifts the character by the integer picked by the user
     //assuming the user won't shift the characters by more than 4 when using z
     //assuming the user won't shift the characters negatively more than 8 from the integer 0
 
